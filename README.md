@@ -19,7 +19,7 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
 
   - [x] Given a market price as input, calculate the dividend yield for a given stock  
         
-        API call: /dividend-yield/{stockName}/{inputPrice}
+        API call: GET /dividend-yield/{stockName}/{inputPrice}
         
        Sample Requests: 
   
@@ -47,7 +47,7 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
 
   - [x]  Given a market price as input, calculate the Price-to-Earning Ratio for a given stock  
          
-            API call: /pe-ratio/{stockName}/{inputPrice}
+            API call: GET /pe-ratio/{stockName}/{inputPrice}
                    
      Sample Requests and Responses:  
            
@@ -78,6 +78,8 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
     must be BUY or SELL). The server adds the timestamp to the payload on the serverside, and records the trade
     in an internal datastructure.
 
+               API Call:  POST /trade
+               
     Sample Requests and Responses: 
     Buy Stock: 
 
@@ -132,7 +134,8 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
 
                 
   - [x] Calculate Volume Weighted Stock Price based on trades in past 15 minutes For a given stock
-        API: /volume-weighted-stockprice/{stock}
+        
+                API Call: GET /volume-weighted-stockprice/{stock}
         
                 curl localhost:8000/volume-weighted-stockprice/TEA
                 {
@@ -142,7 +145,8 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
   
   
   - [x] Calculate the GBCE All Share Index using the geometric mean of prices for all stocks
-        APIL /all-share-index
+        
+                API Call: GET /all-share-index
 
                 curl localhost:8000/all-share-index
                 {
