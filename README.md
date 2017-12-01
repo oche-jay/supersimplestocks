@@ -1,4 +1,4 @@
-# supersimplestocks [![Build Status](https://travis-ci.org/oche-jay/supersimplestocks.svg?branch=master)](https://travis-ci.org/oche-jay/simplemessagingapp)
+# supersimplestocks [![Build Status](https://travis-ci.org/oche-jay/supersimplestocks.svg?branch=master)](https://travis-ci.org/oche-jay/supersimplestocks)
 
 Super Simple Stocks application is a Web Server with a REST API that accepts stock trades as JSON messages and performs
 some calculations on them.
