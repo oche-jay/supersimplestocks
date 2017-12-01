@@ -18,6 +18,7 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
  ### Acceptance Criteria                             
 
   - [x] Given a market price as input, calculate the dividend yield for a given stock  
+        
         API call: /dividend-yield/{stockName}/{inputPrice}
         
   Sample Requests: 
@@ -45,9 +46,11 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
          }
 
   - [x]  Given a market price as input, calculate the Price-to-Earning Ratio for a given stock  
+         
          API call: /pe-ratio/{stockName}/{inputPrice}
                    
      Sample Requests and Responses:  
+           
            curl localhost:8000/pe-ratio/POP/10.05  
            {
               "stock": "POP",
@@ -77,7 +80,8 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
     in an internal datastructure.
     
     Sample Requests and Responses: 
-    Buy Stock:     
+    Buy Stock: 
+    
         curl -H "Content-Type: application/json" -X POST -d ' 
         {
                 "stock": "TEA",
@@ -86,13 +90,15 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
                 "indicator": "BUY"
         }' http://localhost:8000/trade
  
-        #Response:
+    Response:
+    
         {
             "message": "Successfully recorded trade",
             "httpStatus": 200
         }
 
     Sell Stock:
+    
         curl -H "Content-Type: application/json" -X POST -d ' 
         {
                 "stock": "TEA",
@@ -101,13 +107,15 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
                 "indicator": "SELL"
         }' http://localhost:8000/trade
    
-        #Response:
+    Response:
+     
         {
             "message": "Successfully recorded trade",
             "httpStatus": 200
         }
           
     Invalid Trade (unknown Indicator)
+    
         curl -H "Content-Type: application/json" -X POST -d ' 
         {
                 "stock": "TEA",
@@ -116,7 +124,8 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
                 "indicator": "BUX"
         }' http://localhost:8000/trade
                 
-   Response:
+    Response:
+    
        {
            "message": "JsonParseException: required field missing from sent JSON message: indicator",
            "httpStatus": 400
@@ -141,3 +150,5 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
         {
             "allShareIndex": 2.5089
         }
+        
+        
