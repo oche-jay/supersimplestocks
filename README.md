@@ -20,9 +20,9 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
   - [x] Given a market price as input, calculate the dividend yield for a given stock  
         API call: /dividend-yield/{stockName}/{inputPrice}
         
-  Sample Requests:  
-  curl localhost:8000/dividend-yield/TEA/50 
+  Sample Requests: 
   
+    curl localhost:8000/dividend-yield/TEA/50 
          {
              "stock": "TEA",
              "marketPrice": 50.25,
@@ -31,7 +31,6 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
          }
  
     curl localhost:8000/dividend-yield/GIN/50  
-    
          {
              "stock": "GIN",
              "marketPrice": 50.25,
@@ -40,7 +39,6 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
          }
              
      curl localhost:8000/dividend-yield/ZZZ/50 (unkown stock)
-         
          {
              "message": "NoSuchElementException: No value present",
              "httpStatus": 500
