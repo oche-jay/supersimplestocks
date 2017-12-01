@@ -117,6 +117,7 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
  
                 
   - [x] Calculate Volume Weighted Stock Price based on trades in past 15 minutes For a given stock
+        
         curl localhost:8000/volume-weighted-stockprice/TEA
         #Response:
         {
@@ -127,6 +128,7 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
   
   - [x] Calculate the GBCE All Share Index using the geometric mean of prices for all stocks
         curl localhost:8000/all-share-index
+        
         #Response:
         {
             "allShareIndex": 2.5089
