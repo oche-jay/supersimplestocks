@@ -18,11 +18,11 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
  ### Acceptance Criteria                             
 
   - [x] Given a market price as input, calculate the dividend yield for a given stock  
-        API call: {server}/dividend-yield/{stockName}/{inputPrice}
+        API call: /dividend-yield/{stockName}/{inputPrice}
         
-        e.g.:
-        #Sample Request and Response:  
-        curl localhost:8000/dividend-yield/TEA/50   
+  Sample Requests:  
+  curl localhost:8000/dividend-yield/TEA/50 
+  
          {
              "stock": "TEA",
              "marketPrice": 50.25,
@@ -30,7 +30,8 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
              "type": "COMMON"
          }
  
-        curl localhost:8000/dividend-yield/GIN/50     
+    curl localhost:8000/dividend-yield/GIN/50  
+    
          {
              "stock": "GIN",
              "marketPrice": 50.25,
@@ -38,18 +39,17 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
              "type": "PREFERRED"
          }
              
-         curl localhost:8000/dividend-yield/ZZZ/50 #unkown stock
+     curl localhost:8000/dividend-yield/ZZZ/50 (unkown stock)
+         
          {
              "message": "NoSuchElementException: No value present",
              "httpStatus": 500
          }
 
   - [x]  Given a market price as input, calculate the Price-to-Earning Ratio for a given stock  
-         
-         API call: {server}/pe-ratio/{stockName}/{inputPrice}
+         API call: /pe-ratio/{stockName}/{inputPrice}
                    
-           e.g.:
-           #Sample Request and Response:  
+     Sample Requests and Responses:  
            curl localhost:8000/pe-ratio/POP/10.05  
            {
               "stock": "POP",
@@ -71,12 +71,15 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
             }
             
   - [x] Record a trade, with timestamp, quantity of shares, buy or sell indicator and trade price For a given stock
-        This has been implemented as a HTTP POST message. The server performs a quick validation on all incoming 
-        JSON payloads (quantity must not be empty or less than 1, price cannot be negative, indicator 
-        must be BUY or SELL). The server adds the timestamp to the payload on the serverside, and records the trade
-        in an internal datastructure.
-        
-        #BUY:
+  
+
+    This has been implemented as a HTTP POST message. The server performs a quick validation on all incoming 
+    JSON payloads (quantity must not be empty or less than 1, price cannot be negative, indicator 
+    must be BUY or SELL). The server adds the timestamp to the payload on the serverside, and records the trade
+    in an internal datastructure.
+    
+    Sample Requests and Responses: 
+    Buy Stock:     
         curl -H "Content-Type: application/json" -X POST -d ' 
         {
                 "stock": "TEA",
@@ -84,10 +87,14 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
                 "price": "2.5",
                 "indicator": "BUY"
         }' http://localhost:8000/trade
-        
+ 
         #Response:
-        
-        #SELL:
+        {
+            "message": "Successfully recorded trade",
+            "httpStatus": 200
+        }
+
+    Sell Stock:
         curl -H "Content-Type: application/json" -X POST -d ' 
         {
                 "stock": "TEA",
@@ -95,11 +102,14 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
                 "price": "2.5",
                 "indicator": "SELL"
         }' http://localhost:8000/trade
-        
+   
         #Response:
-        
-        
-        #invalid trade payload:
+        {
+            "message": "Successfully recorded trade",
+            "httpStatus": 200
+        }
+          
+    Invalid Trade (unknown Indicator)
         curl -H "Content-Type: application/json" -X POST -d ' 
         {
                 "stock": "TEA",
@@ -108,7 +118,7 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
                 "indicator": "BUX"
         }' http://localhost:8000/trade
                 
-        #Response:
+   Response:
        {
            "message": "JsonParseException: required field missing from sent JSON message: indicator",
            "httpStatus": 400
@@ -127,8 +137,8 @@ A suite of data-driven unit tests can be found in  [src/test/java](/src/test/jav
   
   
   - [x] Calculate the GBCE All Share Index using the geometric mean of prices for all stocks
-        curl localhost:8000/all-share-index
         
+        curl localhost:8000/all-share-index
         #Response:
         {
             "allShareIndex": 2.5089
