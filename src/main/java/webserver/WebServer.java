@@ -10,7 +10,8 @@ import java.util.logging.Logger;
 
 public class WebServer {
     private final static Logger logger = Logger.getLogger(WebServer.class.getName());
-    @Setter static int port = 8000;
+    @Setter
+    static int port = 8000;
 
     public static void main(String[] args) throws Exception {
         WebServer webServer = new WebServer();

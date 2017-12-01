@@ -16,7 +16,8 @@ import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
 
 public abstract class SimpleHandler {
 
-    protected @Setter int httpResponseCode = 0;
+    @Setter
+    protected int httpResponseCode = 0;
     protected String responseMsg;
     protected String stockSymbol;
     protected String[] params;
@@ -31,14 +32,13 @@ public abstract class SimpleHandler {
         String path = httpExchange.getRequestURI().getPath();
         String[] params = path.substring(1, path.length()).split("/");
 
-        if (!httpMethod.equals(allowedMethod)){
+        if (!httpMethod.equals(allowedMethod)) {
             setHttpResponseCode(HTTP_BAD_METHOD);
             responseMsg = String.format("Only %s  allowed at this endpoint", allowedMethod);
             throw new RuntimeException(responseMsg);
-        }
-        else if (params.length != expectdPathParams){
+        } else if (params.length != expectdPathParams) {
             setHttpResponseCode(HTTP_BAD_REQUEST);
-            responseMsg = String.format("%s request path is in unexpected format", allowedMethod) ;
+            responseMsg = String.format("%s request path is in unexpected format", allowedMethod);
             throw new RuntimeException(responseMsg);
         }
         return params;
@@ -58,19 +58,19 @@ public abstract class SimpleHandler {
         }
     }
 
-    protected String handleGenericMessage(String genericMessage, int httpStatus){
+    protected String handleGenericMessage(String genericMessage, int httpStatus) {
         setHttpResponseCode(httpStatus);
         GenericResponse genericResponse = new GenericResponse(genericMessage, httpResponseCode);
         return new Gson().toJson(genericResponse);
     }
 
-    protected String handleException(String errorMsg, int errorStatus){
+    protected String handleException(String errorMsg, int errorStatus) {
         setHttpResponseCode(errorStatus);
         GenericResponse genericResponse = new GenericResponse(errorMsg, httpResponseCode);
         return new Gson().toJson(genericResponse);
     }
 
-    protected String handleException(Exception e, int errorStatus){
+    protected String handleException(Exception e, int errorStatus) {
         e.printStackTrace();
         setHttpResponseCode(errorStatus);
         String errorMsg = e.getClass().getSimpleName() + ": " + e.getMessage();

@@ -16,13 +16,19 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class StockCalculator {
-    protected @Getter SimpleStocksConfig config;
-    protected @Getter HashMap<String, SortedSet<Trade>> groupedTrades;
+
+    @Setter
+    private static volatile StockCalculator instance;
+
+    private static Object mutex = new Object();
+
+    @Getter
+    protected SimpleStocksConfig config;
+
+    @Getter
+    protected HashMap<String, SortedSet<Trade>> groupedTrades;
 
     private String DEFAULT_CONFIG = "config.yaml";
-
-    private @Setter static volatile StockCalculator instance;
-    private static Object mutex = new Object();
 
     private StockCalculator() throws IOException {
         this.config = getConfigFromFile(DEFAULT_CONFIG);
@@ -77,7 +83,7 @@ public class StockCalculator {
 
     public DividendYield getDividendYield(String symbol, BigDecimal marketPrice) {
         Stock stock = config.getStocks().stream().filter(k -> k.getStock().equals(symbol)).findFirst().get();
-        BigDecimal dividendYield =  calculateDividendYield(symbol, marketPrice);
+        BigDecimal dividendYield = calculateDividendYield(symbol, marketPrice);
 
         return new DividendYield(symbol, marketPrice, dividendYield, stock.getType());
     }
@@ -146,14 +152,14 @@ public class StockCalculator {
         }
     }
 
-    public BigDecimal calculateAllShareIndex(){
+    public BigDecimal calculateAllShareIndex() {
         double product = 1;
-        double count =  0;
+        double count = 0;
 
-        final double[] x = { product, count };
+        final double[] x = {product, count};
 
         Consumer<Trade> geometricMeanConsumer = trade -> {
-            x[0]= x[0] * trade.getPrice().doubleValue(); //product of price
+            x[0] = x[0] * trade.getPrice().doubleValue(); //product of price
             x[1] = x[1] + 1; //count of trades
         };
 
@@ -162,10 +168,10 @@ public class StockCalculator {
         while (it.hasNext()) {
             Map.Entry<String, SortedSet<Trade>> pair = (Map.Entry) it.next();
             SortedSet<Trade> trades = pair.getValue();
-            trades.stream().filter(trade -> trade.getPrice().doubleValue() > 0 ).forEach(geometricMeanConsumer);
+            trades.stream().filter(trade -> trade.getPrice().doubleValue() > 0).forEach(geometricMeanConsumer);
         }
         count = x[1];
-        product = x[0] ;
+        product = x[0];
         double power = 1 / count;
         double geometricMean = Math.pow(product, power);
 

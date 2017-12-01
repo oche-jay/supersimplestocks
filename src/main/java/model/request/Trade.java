@@ -9,16 +9,22 @@ import model.util.Required;
 import java.math.BigDecimal;
 
 @Data
-public class Trade implements Comparable<Trade>{
+public class Trade implements Comparable<Trade> {
 
-    @Required private String stock;
-    @Required @PositiveValue private int quantity;
-    @Required @NonNegative private BigDecimal price;
-    @Required private Indicator indicator;
+    @Required
+    private String stock;
+    @Required
+    @PositiveValue
+    private int quantity;
+    @Required
+    @NonNegative
+    private BigDecimal price;
+    @Required
+    private Indicator indicator;
 
     private Long timestamp;
 
-    public Trade(Long timestamp, String stock, int quantity, BigDecimal price, Indicator indicator){
+    public Trade(Long timestamp, String stock, int quantity, BigDecimal price, Indicator indicator) {
         setTimestamp(timestamp);
         setStock(stock);
         setQuantity(quantity);
@@ -26,7 +32,7 @@ public class Trade implements Comparable<Trade>{
         setIndicator(indicator);
     }
 
-    public Trade(String stock, int quantity, BigDecimal price, Indicator indicator){
+    public Trade(String stock, int quantity, BigDecimal price, Indicator indicator) {
         setStock(stock);
         setQuantity(quantity);
         setPrice(price);

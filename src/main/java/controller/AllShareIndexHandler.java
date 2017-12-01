@@ -21,7 +21,8 @@ public class AllShareIndexHandler extends SimpleHandler implements HttpHandler {
             BigDecimal allShareIndex = calculator.calculateAllShareIndex();
             AllShareIndex allShareIndexObj = new AllShareIndex(allShareIndex);
 
-            setHttpResponseCode(HTTP_OK);;
+            setHttpResponseCode(HTTP_OK);
+            ;
             responseMsg = new Gson().toJson(allShareIndexObj);
 
         } catch (Exception e) {

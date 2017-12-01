@@ -12,13 +12,13 @@ public class DividendYield {
     private BigDecimal dividendYield;
     private StockType type;
 
-    public DividendYield(String stock, BigDecimal marketPrice, BigDecimal dividendYield){
+    public DividendYield(String stock, BigDecimal marketPrice, BigDecimal dividendYield) {
         setStock(stock);
         setMarketPrice(marketPrice);
         setDividendYield(dividendYield);
     }
 
-    public DividendYield(String stock, BigDecimal marketPrice, BigDecimal dividendYield, StockType type){
+    public DividendYield(String stock, BigDecimal marketPrice, BigDecimal dividendYield, StockType type) {
         setStock(stock);
         setMarketPrice(marketPrice);
         setDividendYield(dividendYield);

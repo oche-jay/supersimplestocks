@@ -12,9 +12,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
 
-import static java.net.HttpURLConnection.HTTP_BAD_REQUEST;
-import static java.net.HttpURLConnection.HTTP_INTERNAL_ERROR;
-import static java.net.HttpURLConnection.HTTP_OK;
+import static java.net.HttpURLConnection.*;
 
 public class TradeRecordHandler extends SimpleHandler implements HttpHandler {
     @Override
@@ -30,7 +28,8 @@ public class TradeRecordHandler extends SimpleHandler implements HttpHandler {
             trade.setTimestamp(currentTime);
 
             calculator.recordTrade(trade);
-            setHttpResponseCode(HTTP_OK);;
+            setHttpResponseCode(HTTP_OK);
+            ;
             String success = "Successfully recorded trade";
             responseMsg = handleGenericMessage(success, httpResponseCode);
 
@@ -38,7 +37,7 @@ public class TradeRecordHandler extends SimpleHandler implements HttpHandler {
             nfe.printStackTrace();
             String errorMsg = String.format("could not convert \"%s\" to a BigDecimal number", marketPriceStr);
             responseMsg = handleException(errorMsg, HTTP_BAD_REQUEST);
-        } catch (JsonParseException jpe){
+        } catch (JsonParseException jpe) {
             responseMsg = handleException(jpe, HTTP_BAD_REQUEST);
         } catch (Exception e) {
             responseMsg = handleException(e, HTTP_INTERNAL_ERROR);
