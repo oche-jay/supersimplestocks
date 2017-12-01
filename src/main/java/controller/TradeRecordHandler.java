@@ -37,11 +37,11 @@ public class TradeRecordHandler extends SimpleHandler implements HttpHandler {
         } catch (NumberFormatException nfe) {
             nfe.printStackTrace();
             String errorMsg = String.format("could not convert \"%s\" to a BigDecimal number", marketPriceStr);
-            handleException(errorMsg, HTTP_BAD_REQUEST);
+            responseMsg = handleException(errorMsg, HTTP_BAD_REQUEST);
         } catch (JsonParseException jpe){
-            handleException(jpe, HTTP_BAD_REQUEST);
+            responseMsg = handleException(jpe, HTTP_BAD_REQUEST);
         } catch (Exception e) {
-            handleException(e, HTTP_INTERNAL_ERROR);
+            responseMsg = handleException(e, HTTP_INTERNAL_ERROR);
         } finally {
             sendResponse(responseMsg, httpResponseCode);
         }

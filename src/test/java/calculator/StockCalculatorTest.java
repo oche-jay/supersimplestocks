@@ -1,7 +1,6 @@
 package calculator;
 
 import model.config.SimpleStocksConfig;
-import model.domain.Indicator;
 import model.domain.Stock;
 import model.domain.StockType;
 import model.request.Trade;
@@ -29,8 +28,8 @@ public class StockCalculatorTest {
 
         assertEquals(simpleStocksConfig.getStocks().size() , 5);
 
-        Stock stock = simpleStocksConfig.getStocks().stream().filter(k -> k.getSymbol().equals(symbol)).findFirst().get();
-        assertEquals(stock.getSymbol(), symbol);
+        Stock stock = simpleStocksConfig.getStocks().stream().filter(k -> k.getStock().equals(symbol)).findFirst().get();
+        assertEquals(stock.getStock(), symbol);
 
         assertEquals(stock.getType(), type);
         if (stock.getType() == COMMON){
@@ -64,7 +63,7 @@ public class StockCalculatorTest {
         StockCalculator stockCalculator = StockCalculator.getInstance();
         System.out.println(stockCalculator);
         stockCalculator.recordTrade(trade);
-        assertEquals(stockCalculator.calculateVolumeWeightedStockPrice(trade.getSymbol(), 15), new BigDecimal(vswp).setScale(2, RoundingMode.HALF_UP) );
+        assertEquals(stockCalculator.calculateVolumeWeightedStockPrice(trade.getStock(), 15), new BigDecimal(vswp).setScale(2, RoundingMode.HALF_UP) );
 
         System.out.println("All Share Index:" + stockCalculator.calculateAllShareIndex());
     }
@@ -73,7 +72,7 @@ public class StockCalculatorTest {
     public void testRecordDifferentTradesandGetVolumeWeightedStockPrice(Trade trade, double vswp ){
         StockCalculator stockCalculator = StockCalculator.getInstance();
         stockCalculator.recordTrade(trade);
-        assertEquals(stockCalculator.calculateVolumeWeightedStockPrice(trade.getSymbol(), 15), new BigDecimal(vswp).setScale(2, RoundingMode.HALF_UP) );
+        assertEquals(stockCalculator.calculateVolumeWeightedStockPrice(trade.getStock(), 15), new BigDecimal(vswp).setScale(2, RoundingMode.HALF_UP) );
 
         System.out.println("All Share Index:" + stockCalculator.calculateAllShareIndex());
     }
@@ -105,7 +104,7 @@ public class StockCalculatorTest {
         StockCalculator stockCalculator = StockCalculator.getInstance();
         System.out.println(stockCalculator);
         stockCalculator.recordTrade(trade);
-        assertEquals(stockCalculator.calculateVolumeWeightedStockPrice(trade.getSymbol(), 15), new BigDecimal(vswp).setScale(2, RoundingMode.HALF_UP) );
+        assertEquals(stockCalculator.calculateVolumeWeightedStockPrice(trade.getStock(), 15), new BigDecimal(vswp).setScale(2, RoundingMode.HALF_UP) );
     }
 
     @DataProvider

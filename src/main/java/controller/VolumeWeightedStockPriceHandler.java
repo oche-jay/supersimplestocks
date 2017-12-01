@@ -22,7 +22,7 @@ public class VolumeWeightedStockPriceHandler extends SimpleHandler implements Ht
             responseMsg = new Gson().toJson(volumeWeightedStockPrice);
             setHttpResponseCode(HTTP_OK);;
         } catch (Exception e){
-            handleException(e, HTTP_INTERNAL_ERROR);
+            responseMsg = handleException(e, HTTP_INTERNAL_ERROR);
         }
         finally {
             sendResponse(responseMsg, httpResponseCode);

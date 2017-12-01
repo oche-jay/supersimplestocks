@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 @Data
 public class Stock {
 
-    private String symbol;
+    private String stock;
     private String currency = "GBX"; //default to GBp
     private StockType type;
     private BigDecimal lastDividend;

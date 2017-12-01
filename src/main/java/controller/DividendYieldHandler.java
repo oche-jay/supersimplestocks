@@ -25,12 +25,9 @@ public class DividendYieldHandler extends SimpleHandler implements HttpHandler {
             stockSymbol = params[1];
             marketPriceStr =  params[2];
             BigDecimal marketPrice = new BigDecimal(marketPriceStr);
-            BigDecimal dividendYield = calculator.calculateDividendYield(stockSymbol, marketPrice);
-            DividendYield dividendYieldObj = new DividendYield(stockSymbol, marketPrice, dividendYield);
-
-             setHttpResponseCode(HTTP_OK);;
-            responseMsg = new Gson().toJson(dividendYieldObj);
-
+            DividendYield dividendYield = calculator.getDividendYield(stockSymbol, marketPrice);
+            setHttpResponseCode(HTTP_OK);;
+            responseMsg = new Gson().toJson(dividendYield);
         }
         catch (NumberFormatException nfe){
             nfe.printStackTrace();

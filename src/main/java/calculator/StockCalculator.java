@@ -6,6 +6,7 @@ import lombok.Setter;
 import model.config.SimpleStocksConfig;
 import model.domain.Stock;
 import model.request.Trade;
+import model.response.DividendYield;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.IOException;
@@ -58,7 +59,7 @@ public class StockCalculator {
     }
 
     public BigDecimal calculateDividendYield(String symbol, BigDecimal marketPrice) {
-        Stock stock = config.getStocks().stream().filter(k -> k.getSymbol().equals(symbol)).findFirst().get();
+        Stock stock = config.getStocks().stream().filter(k -> k.getStock().equals(symbol)).findFirst().get();
         BigDecimal dividendYield;
 
         switch (stock.getType()) {
@@ -74,8 +75,15 @@ public class StockCalculator {
         return dividendYield;
     }
 
+    public DividendYield getDividendYield(String symbol, BigDecimal marketPrice) {
+        Stock stock = config.getStocks().stream().filter(k -> k.getStock().equals(symbol)).findFirst().get();
+        BigDecimal dividendYield =  calculateDividendYield(symbol, marketPrice);
+
+        return new DividendYield(symbol, marketPrice, dividendYield, stock.getType());
+    }
+
     public BigDecimal calculatePriceToEarningRatio(String symbol, BigDecimal marketPrice) {
-        Stock stock = config.getStocks().stream().filter(k -> k.getSymbol().equals(symbol)).findFirst().get();
+        Stock stock = config.getStocks().stream().filter(k -> k.getStock().equals(symbol)).findFirst().get();
         return marketPrice.divide(stock.getLastDividend(), 4, BigDecimal.ROUND_HALF_UP);
 
     }
@@ -85,9 +93,9 @@ public class StockCalculator {
         BigDecimal volume = new BigDecimal(trade.getQuantity());
 
         if (price.doubleValue() >= 0 && volume.doubleValue() > 0) {
-            SortedSet<Trade> groupSet = groupedTrades.getOrDefault(trade.getSymbol(), new TreeSet<>());
+            SortedSet<Trade> groupSet = groupedTrades.getOrDefault(trade.getStock(), new TreeSet<>());
             groupSet.add(trade);
-            groupedTrades.put(trade.getSymbol(), groupSet);
+            groupedTrades.put(trade.getStock(), groupSet);
         } else if (price.doubleValue() < 0) {
             System.out.println("price must not be less than zero");
         } else if (volume.doubleValue() < 1) {

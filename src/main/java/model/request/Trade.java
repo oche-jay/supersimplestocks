@@ -11,23 +11,23 @@ import java.math.BigDecimal;
 @Data
 public class Trade implements Comparable<Trade>{
 
-    @Required private String symbol;
+    @Required private String stock;
     @Required @PositiveValue private int quantity;
     @Required @NonNegative private BigDecimal price;
     @Required private Indicator indicator;
 
     private Long timestamp;
 
-    public Trade(Long timestamp, String symbol, int quantity, BigDecimal price, Indicator indicator){
+    public Trade(Long timestamp, String stock, int quantity, BigDecimal price, Indicator indicator){
         setTimestamp(timestamp);
-        setSymbol(symbol);
+        setStock(stock);
         setQuantity(quantity);
         setPrice(price);
         setIndicator(indicator);
     }
 
-    public Trade(String symbol, int quantity, BigDecimal price, Indicator indicator){
-        setSymbol(symbol);
+    public Trade(String stock, int quantity, BigDecimal price, Indicator indicator){
+        setStock(stock);
         setQuantity(quantity);
         setPrice(price);
         setIndicator(indicator);
