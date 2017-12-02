@@ -15,7 +15,7 @@ To test and build this application:
  ### Testing
 A suite of data-driven unit tests can be found in  [src/test/java](/src/test/java/) folder.
 
- ### Acceptance Criteria                             
+ ### Requirements                        
 
   - [x] Given a market price as input, calculate the dividend yield for a given stock  
         
