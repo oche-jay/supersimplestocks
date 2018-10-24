@@ -13,12 +13,15 @@ public class Trade implements Comparable<Trade> {
 
     @Required
     private String stock;
+    
     @Required
     @PositiveValue
     private int quantity;
+    
     @Required
     @NonNegative
     private BigDecimal price;
+    
     @Required
     private Indicator indicator;
 
